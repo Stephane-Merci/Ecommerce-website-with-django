@@ -1,0 +1,76 @@
+
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+    <main class="main pages">
+        <div class="page-header breadcrumb-wrap"> 
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="#" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                    <span></span> Pages <span></span> My Account
+                </div>
+            </div>
+        </div>
+        <div class="modal-body p-5 pt-0">
+            
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-5">
+                            {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ form.errors }}</strong>
+                                </div>
+                            {% endif %}
+                            <div class="form-floating mb-3">
+                                {{ form.username }}
+                                <label for="floatingInput">Username</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form.email }}
+                                <label for="floatingPassword">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form.password1 }}
+                                <label for="floatingPassword">Password</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form.password2 }}
+                                <label for="floatingPassword">Confirm Password</label>
+                            </div>
+                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
+                            <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
+                            <br>
+                            <a class="text-muted" href={% url 'login' %}>Already have an account?<strong>login</strong></a>
+
+                            <hr class="my-4">
+                            </div>
+                            <div class="col-5">
+                                <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+                                <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+                                    <svg class="bi me-1" width="16" height="16">
+                                        <use xlink:href="#twitter" />
+                                    </svg>
+                                    Sign up with Facebook
+                                </button>
+                                <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
+                                    <svg class="bi me-1" width="16" height="16">
+                                        <use xlink:href="#facebook" />
+                                    </svg>
+                                    Sign up with Google
+                                </button>
+                                <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+                                    <svg class="bi me-1" width="16" height="16">
+                                        <use xlink:href="#github" />
+                                    </svg>
+                                    Sign up with Apple
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+{% endblock content %}
