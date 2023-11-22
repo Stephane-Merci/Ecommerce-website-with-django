@@ -82,7 +82,7 @@ class Vendor(models.Model):
 class Product(models.Model):
     pid = ShortUUIDField(unique=True, length=10, max_length=20, prefix="pdt", alphabet = "abcdefgh12345678")
     
-    cathegory = models.ForeignKey(Cathegory, on_delete=models.SET_NULL, null=True)
+    cathegory = models.ForeignKey(Cathegory, on_delete=models.SET_NULL, null=True, related_name="category")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=False, null=True)
      
     title = models.CharField(max_length=100, default="fresh product")
