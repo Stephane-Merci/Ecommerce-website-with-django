@@ -1714,6 +1714,12 @@ ol {
 	margin-bottom: 15px;
 }
 
+.product__details__text .product__details__oldprice {
+	font-size: 15px;
+	color: #dd2222;
+	font-weight: 600;
+	margin-bottom: 15px;
+}
 .product__details__text p {
 	margin-bottom: 45px;
 }
@@ -1804,9 +1810,9 @@ ol {
 	display: inline-block;
 }
 
-.product__details__tab {
+/* .product__details__tab {
 	padding-top: 85px;
-}
+} */
 
 .product__details__tab .nav-tabs {
 	border-bottom: none;

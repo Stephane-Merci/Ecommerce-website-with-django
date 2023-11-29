@@ -57,6 +57,7 @@ class Vendor(models.Model):
     
     title = models.CharField(max_length=100, default="ABCD")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
+    cover_image = models.ImageField(null=True, blank=True, upload_to=user_directory_path, default="vendor.jpg")
     description = models.TextField(null=True, blank=True, default="This is the best vendor")
     
     address = models.CharField(max_length=100, default="123 Main Street.")
@@ -66,7 +67,7 @@ class Vendor(models.Model):
     authentication_rating = models.CharField(max_length=100, default="100")
     days_return = models.CharField(max_length=100, default="100")
     warranty_period = models.CharField(max_length=100, default="100")
-    
+    date = models.DateField(auto_now_add=True, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=False, null=True)
         
     class Meta:
@@ -78,7 +79,7 @@ class Vendor(models.Model):
     def __str__(self):
         return self.title
     
-    
+
 class Product(models.Model):
     pid = ShortUUIDField(unique=True, length=10, max_length=20, prefix="pdt", alphabet = "abcdefgh12345678")
     
@@ -88,15 +89,24 @@ class Product(models.Model):
     title = models.CharField(max_length=100, default="fresh product")
     image = models.ImageField(upload_to="user_directory_path", default="product.jpg")
     description = models.TextField(null=True, blank=True, default="This is the description")
+    long_description = models.TextField(null=True, blank=True, default="This is the long description")
 
     price = models.DecimalField(max_digits=999999999999999, decimal_places=2, default="199")
     old_price = models.DecimalField(max_digits=999999999999999, decimal_places=2, default="299")
     
     specifications = models.TextField(null=True, blank=True)
+    type = models.CharField(max_length=100, default="Organic", null=True, blank=True)
+    stock_count = models.CharField(max_length=100, default="10", null=True, blank=True)
+    life = models.CharField(max_length=100, default="100 Days", null=True, blank=True)
+    manufactured_date = models.DateField(auto_now_add=False, null=True, blank=True)
+
+
+
+
     # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
 
     product_status = models.CharField(choices=STATUS, max_length=10, default="in_review")
-    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, related_name="vendor")
     
     status = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
@@ -125,7 +135,7 @@ class Product(models.Model):
     
 class ProductImages(models.Model):
     images = models.ImageField(upload_to="product-images", default="product.jpg")
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name="product_images")
     date_added = models.DateTimeField(auto_now_add=True)
     
     class Meta:

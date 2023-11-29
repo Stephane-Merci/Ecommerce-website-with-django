@@ -41,6 +41,27 @@ def vendor(request):
     vendors = Vendor.objects.all()
     
     context = {
-        'vendor' : vendors
+        'vendors' : vendors
     }
     return render(request,'core/vendor.html',context)
+
+def vendor_details(request, vid):
+    vendor = Vendor.objects.get(vid=vid)
+    products = Product.objects.filter(vendor=vendor, product_status="published")
+    
+    context = {
+        'vendor' : vendor,
+        'products' : products
+    }
+    return render(request,'core/vendor_detail.html',context)
+
+def product_details(request, pid):
+    product = Product.objects.get(pid=pid, product_status="published")
+    p_images = product.product_images.all()
+    
+    context = {
+        'product': product,
+        'p_images': p_images
+    }
+    
+    return render(request, 'core/product_details.html',context)

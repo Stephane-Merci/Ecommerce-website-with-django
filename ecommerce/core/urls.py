@@ -6,6 +6,7 @@ urlpatterns = [
     #home and shop
     path('', views.index, name='index'),
     path('shop/', views.shop, name='shop'),
+    path('product/<pid>', views.product_details, name='product_details'),
 
     #category
     path('category/', views.category, name='category'),
@@ -13,4 +14,6 @@ urlpatterns = [
     
     #vendor
     path('vendors/', views.vendor, name='vendor'),
+    path('vendor/<vid>/', views.vendor_details, name='vendor_details'),
+    
 ]

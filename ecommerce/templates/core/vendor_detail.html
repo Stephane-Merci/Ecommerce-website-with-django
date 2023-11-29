@@ -1,0 +1,120 @@
+{% extends 'partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="{% static 'assets/img/breadcrumb.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>{{ vendor.title }}</h2>
+                        <div class="breadcrumb__option">
+                            <a href={% url 'index' %}>Home</a>
+                            <a href={% url 'vendor' %}>Vendors</a>
+                            <span>{{ vendor.title }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__item">
+                            <img class="product__details__pic__item--large"
+                                src="{{ vendor.image.url }}" alt="">
+                        </div>
+                        <div class="product__details__pic__slider owl-carousel">
+                            {% for p in products %}
+                                <img src="{{ p.image.url }}" alt="">
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__text">
+                        <p>Since {{ vendor.date|date:"d-M-Y" }}</p>
+                        <h3>{{ vendor.title }}</h3>
+                        <div class="product__details__rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span>(18 reviews)</span>
+                        </div>
+                        <div class="product__details__price">{{ vendor.vendor.count }} product{{ vendor.vendor.count|pluralize }}</div>
+                        <p>{{ vendor.description }}</p>
+
+                        <ul>
+                            <li><b>Address</b> <span>{{ vendor.address }}</span></li>
+                            <li><b>Contact</b> <span>{{ vendor.contact }}</span></li>
+                            <li><b>Follow us</b>
+                                <div class="share">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                    aria-selected="true">Products</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>We found {{ products.count }} product{{ products.count|pluralize }} for you</h6>
+                                    <div class="row">
+                                        {% for p in products %}
+                                            <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
+                                                <div class="featured__item">
+                                                    <div class="featured__item__pic set-bg" 
+                                                        data-setbg={{ p.image.url }} >
+                                                        <span style="background-color: white;">-{{ p.get_percentage|floatformat }}%</span>
+                                                        <ul class="featured__item__pic__hover">
+                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                            <li><a href={% url 'product_details' p.pid %}>View</a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="featured__item__text">
+                                                        <h6>{{ p.title|truncatechars:20 }}</h6>
+                                                        <h5>{{ p.price }}</h5>
+                                                        <span style="text-decoration: line-through;">{{ p.old_price }}</span>
+                                                        <p></p> <p>Category: {{ p.cathegory.title }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Details Section End -->
+
+    
+{% endblock content %}
